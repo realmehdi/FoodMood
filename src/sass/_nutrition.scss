@@ -1,0 +1,112 @@
+.spoonacular-salmon {
+  color: #f10a44;
+}
+.spoonacular-blue {
+  color: $color-primary;
+}
+
+.spoonacular-quickview {
+  background-color: $color-grey-light-2;
+  font-size: 1.4rem;
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  margin-right: 0.8rem;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+}
+.spoonacular-caption {
+  font-weight: 600;
+  margin-top: 1.2rem;
+  font-size: 2rem;
+  margin-bottom: 0.6rem;
+}
+.spoonacular-nutrition-visualization-bar {
+  display: inline-block;
+  height: 1.2rem;
+  max-width: calc(100% - 70px);
+  max-width: -webkit-calc(100% - 70px);
+  max-width: -moz-calc(100% - 70px);
+  max-width: -o-calc(100% - 70px);
+}
+.spoonacular-nutrition-visualization-bar.spoonacular-salmon {
+  background-color: #d22752;
+}
+.spoonacular-nutrition-visualization-bar.spoonacular-blue {
+  background-color: #4ec547;
+}
+.spoonacular-nutrition-visualization-bar-number {
+  display: inline-block;
+  margin-left: 1.2rem;
+}
+.spoonacular-nutrient-name {
+  display: inline-block;
+  font-family: inherit;
+  width: 11.4rem;
+  font-size: 1.4rem;
+}
+.spoonacular-nutrient-value {
+  display: inline-block;
+  width: 7.5rem;
+  font-size: 1.4rem;
+}
+.spoonacularNutritionCompositionChart {
+  display: inline-block;
+  z-index: 999;
+}
+.spoonacularNutritionCompositionChart .canvasjs-chart-canvas {
+  border: 1px solid #333;
+  padding: 10px;
+}
+
+//
+.nutrition-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  background-color: #fff;
+  // width: auto;
+  max-height: 60rem;
+  overflow-y: scroll;
+  border-radius: 0.9rem;
+  padding: 5rem 6rem;
+  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.25);
+  transition: all 0.5s;
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    background-color: $color-grey-dark-2;
+  }
+
+  .btn--close-modal {
+    font-family: inherit;
+    color: black;
+    position: absolute;
+    top: 0.5rem;
+    right: 1.6rem;
+    font-size: 3.5rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    z-index: 10000;
+  }
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.5s;
+}
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}

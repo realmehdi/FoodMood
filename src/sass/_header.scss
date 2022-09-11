@@ -1,0 +1,138 @@
+.header {
+  grid-area: head;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-grey-light-1;
+  padding-right: 4rem;
+
+  .header__logo {
+    margin-left: 4rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    cursor: default;
+    span {
+      color: $color-primary;
+    }
+  }
+
+  .search {
+    background-color: #fff;
+    border-radius: 10rem;
+    display: flex;
+    align-items: center;
+    padding-left: 2.5rem;
+    transition: all 0.3s;
+
+    &:focus-within {
+      transform: translateY(-2px);
+      box-shadow: 0 0.7rem 3rem rgba($color-grey-dark-1, 0.08);
+    }
+
+    .search__field {
+      background: none;
+      border: none;
+      font-family: inherit;
+      color: inherit;
+      width: 20rem;
+      // flex-basis: 90%;
+      font-size: 1.7rem;
+      outline: none;
+
+      &::placeholder {
+        color: $color-grey-light-3;
+        font-size: 1.5rem;
+      }
+    }
+
+    .search__btn {
+      font-weight: 600;
+      font-family: inherit;
+    }
+  }
+
+  .nav {
+    align-self: stretch;
+
+    &__list {
+      list-style: none;
+      display: flex;
+      height: 100%;
+    }
+
+    &__item {
+      position: relative;
+    }
+
+    &__btn {
+      display: flex;
+      align-items: center;
+
+      text-transform: uppercase;
+      border: none;
+      font-family: inherit;
+      height: 100%;
+      color: inherit;
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0 1.5rem;
+      transition: all 0.3s;
+      background: transparent;
+
+      &:hover {
+        background-color: $color-grey-light-2;
+      }
+      &:focus {
+        outline: none;
+      }
+
+      svg {
+        height: 2.25rem;
+        width: 2.25rem;
+        margin-right: 0.7rem;
+        fill: $color-primary;
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+.bookmarks {
+  background-color: #fff;
+  position: absolute;
+  padding: 1rem 0;
+  //   right: 0;
+  right: -27.5rem;
+  z-index: 10;
+  width: 40rem;
+  box-shadow: 0 0.8rem 5rem 2rem rgba($color-grey-dark-1, 0.1);
+
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s 0.2s;
+
+  &__list {
+    list-style: none;
+  }
+
+  &__field {
+    cursor: pointer;
+    padding: 0 4rem;
+
+    display: flex;
+    align-items: center;
+    height: 100%;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: $color-grey-light-2;
+    }
+  }
+
+  &:hover,
+  .nav__btn--bookmarks:hover + & {
+    visibility: visible;
+    opacity: 1;
+  }
+}

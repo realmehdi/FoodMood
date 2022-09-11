@@ -1,0 +1,255 @@
+.btn {
+  text-transform: uppercase;
+  background-image: $gradient;
+  border: none;
+  border-radius: 10rem;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+  padding: 1.5rem 3.2rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  & > *:first-child {
+    margin-right: 1rem;
+  }
+
+  svg {
+    height: 2.25rem;
+    width: 2.25rem;
+    fill: currentColor;
+  }
+}
+
+.btn--inline {
+  color: $color-primary;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border: none;
+  background-color: $color-grey-light-1;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10rem;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+
+  svg {
+    height: 1.6rem;
+    width: 1.6rem;
+    fill: currentColor;
+    margin: 0 0.2rem;
+  }
+
+  span {
+    margin: 0 0.4rem;
+  }
+
+  &:hover {
+    // color: $color-grad-2;
+    background-color: $color-grey-light-2;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.spinner {
+  margin: 5rem auto;
+  text-align: center;
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+
+  span::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 100%;
+    height: 100%;
+    border: 5px solid $color-grad-1;
+    border-right: 5px solid $color-primary;
+    border-radius: 50%;
+    // background-color: $color-primary;
+    animation: rotate 0.9s linear infinite;
+  }
+  p {
+    font-size: 1.6rem;
+    font-weight: 600;
+    position: absolute;
+    bottom: -4rem;
+    color: inherit;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.btn--tiny {
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  svg {
+    height: 100%;
+    width: 100%;
+    fill: $color-primary;
+    transition: all 0.3s;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover svg {
+    fill: $color-grad-2;
+    transform: translateY(-1px);
+  }
+
+  &:active svg {
+    fill: $color-grad-2;
+    transform: translateY(0);
+  }
+
+  &:not(:last-child) {
+    margin-right: 0.3rem;
+  }
+}
+
+.btn--nutrition {
+  background-image: $gradient;
+  border-radius: 5rem;
+  border: none;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 1.75rem;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  svg {
+    height: 2.5rem;
+    width: 2.5rem;
+    fill: #fff;
+    margin-left: 1rem;
+  }
+}
+
+.btn--round {
+  background-image: $gradient;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  height: 4.5rem;
+  width: 4.5rem;
+  // margin-left: auto;
+  transition: all 0.2s;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: scale(1.07);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  svg {
+    height: 2.5rem;
+    width: 2.5rem;
+    fill: #fff;
+  }
+}
+
+.heading--2 {
+  text-transform: uppercase;
+  text-align: center;
+  font: {
+    size: 2rem;
+    weight: 700;
+  }
+  color: $color-primary;
+  margin-bottom: 2.5rem;
+}
+
+.btn--small {
+  &,
+  &:link,
+  &:visited {
+    @extend .btn;
+  }
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 1.25rem 2.25rem;
+
+  svg {
+    height: 1.75rem;
+    width: 1.75rem;
+    fill: currentColor;
+  }
+}
+
+.link:link,
+.link:visited {
+  color: $color-grey-dark-2;
+}
+
+.message,
+.error {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 5rem 4rem;
+
+  display: flex;
+
+  svg {
+    height: 3rem;
+    width: 3rem;
+    fill: $color-primary;
+    transform: translateY(-0.3rem);
+  }
+  p {
+    margin-left: 1.5rem;
+    font-size: 1.8rem;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+}
