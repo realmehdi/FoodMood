@@ -46,12 +46,12 @@ body {
   background-image: $gradient;
   background-size: cover;
   background-repeat: no-repeat;
-  min-height: 90vh;
+  min-height: 95vh;
 }
 
 .container {
   max-width: 120rem;
-  min-height: 70vh;
+  // min-height: 117vh;
   background-color: #fff;
   margin: 4vw auto;
   border-radius: 0.9rem;
@@ -59,7 +59,7 @@ body {
   box-shadow: 0 2rem 6rem 0.5rem rgba($color-grey-dark-1, 0.2);
 
   display: grid;
-  grid-template-rows: 10rem minmax(100rem, auto);
+  grid-template-rows: 10rem minmax(50rem, auto);
   grid-template-columns: 1fr 2fr;
   grid-template-areas:
     'head head'

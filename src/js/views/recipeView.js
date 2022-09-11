@@ -9,6 +9,18 @@ class RecipeView extends View {
     ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
 
+  addHandlerUpdateServings(handler) {
+    this._parentEl.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--update-servings');
+      if (!btn) return;
+      console.log(btn);
+
+      const { updateTo } = btn.dataset;
+      if (+updateTo > 0) handler(+updateTo);
+      console.log(updateTo);
+    });
+  }
+
   _generateMarkup() {
     return `
         <figure class="recipe__fig">
@@ -40,12 +52,16 @@ class RecipeView extends View {
             <span class="recipe__info-text">servings</span>
 
             <div class="recipe__info-buttons">
-              <button class="btn--tiny btn--increase-servings">
+              <button class="btn--tiny btn--update-servings" data-update-to="${
+                this._data.servings - 1
+              }">
                 <svg>
                   <use href="src/img/icons.svg#icon-minus-circle"></use>
                 </svg>
               </button>
-              <button class="btn--tiny btn--increase-servings">
+              <button class="btn--tiny btn--update-servings" data-update-to="${
+                this._data.servings + 1
+              }">
                 <svg>
                   <use href="src/img/icons.svg#icon-plus-circle"></use>
                 </svg>
@@ -82,7 +98,7 @@ class RecipeView extends View {
           <p class="recipe__directions-text">
             This recipe was carefully designed and tested by
             <span class="recipe__publisher">${
-              this._data.publisher ? this._data.publisher : 'funny chef'
+              this._data.publisher ? this._data.publisher : 'Cool chef'
             }</span>. Please
             check out directions at their website.
           </p>
@@ -108,7 +124,7 @@ class RecipeView extends View {
             <svg class="recipe__icon">
               <use href="src/img/icons.svg#icon-check"></use>
             </svg>
-            <div class="recipe__quantity">${ing.amount}</div>
+            <div class="recipe__quantity">${ing.amount.toFixed(2)}</div>
             <div class="recipe__description">
               <span class="recipe__unit">${ing.unit}</span>
               ${ing.description}

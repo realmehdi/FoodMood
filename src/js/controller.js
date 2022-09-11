@@ -1,57 +1,76 @@
 import * as model from './model.js';
-import RecipeView from './views/recipeView.js';
-import SearchView from './views/searchView.js';
-import ResultsView from './views/resultsView.js';
-import NutritionView from './views/nutritionView.js';
+import recipeView from './views/recipeView.js';
+import searchView from './views/searchView.js';
+import resultsView from './views/resultsView.js';
+import nutritionView from './views/nutritionView.js';
+import paginationView from './views/paginationView.js';
 
 const controlRecipe = async function () {
   try {
     const id = window.location.hash.slice(1);
     if (!id) return;
 
-    RecipeView.renderSpinner();
+    recipeView.renderSpinner();
 
     // load recipe
     await model.loadRecipe(id);
     console.log(model.state.recipe);
 
     // render recipe
-    RecipeView.render(model.state.recipe);
+    recipeView.render(model.state.recipe);
   } catch (err) {
     console.error(err);
-    RecipeView.renderError();
+    recipeView.renderError();
   }
 };
 
 const controlNutrition = function () {
   // render spinner
-  NutritionView.renderSpinner();
+  nutritionView.renderSpinner();
 
-  NutritionView.render(model.state.nutrition);
+  nutritionView.render(model.state.nutrition);
 };
 
 const controlSearchResults = async function () {
   try {
-    ResultsView.renderSpinner();
+    resultsView.renderSpinner();
 
     // geting query
-    const query = SearchView.getQuery();
+    const query = searchView.getQuery();
     if (!query) return;
 
     // loading results
     await model.loadSearchResults(query);
 
+    model.getSearchResultsPage();
+
     // render results
-    ResultsView.render(model.state.search.results);
+    resultsView.render(model.getSearchResultsPage());
+
+    // render initial pagination buttons
+    paginationView.render(model.state.search);
   } catch (err) {
     console.error(err);
-    ResultsView.renderError();
+    resultsView.renderError();
   }
 };
 
+const controlServings = function (updateTo) {
+  model.updateServings(updateTo);
+  // recipeView.addHandlerUpdateServings(updateTo);
+  recipeView.render(model.state.recipe);
+};
+
+const controlPagination = function (gotoPage) {
+  resultsView.render(model.getSearchResultsPage(gotoPage));
+  paginationView.render(model.state.search);
+};
+
 const init = function () {
-  RecipeView.addHandlerRender(controlRecipe);
-  SearchView.addHandlerSearch(controlSearchResults);
-  NutritionView.addHandlerNutrition(controlNutrition);
+  recipeView.addHandlerRender(controlRecipe);
+  searchView.addHandlerSearch(controlSearchResults);
+  nutritionView.addHandlerNutrition(controlNutrition);
+  paginationView.addHandlerPagination(controlPagination);
+  recipeView.addHandlerUpdateServings(controlServings);
 };
 init();
