@@ -21,6 +21,14 @@ class RecipeView extends View {
     });
   }
 
+  addHandlerAddBookmark(handler) {
+    this._parentEl.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--bookmark');
+      if (!btn) return;
+      handler();
+    });
+  }
+
   _generateMarkup() {
     return `
         <figure class="recipe__fig">
@@ -75,9 +83,11 @@ class RecipeView extends View {
               <use href="./src/img/icons.svg#icon-trending-up"></use>
             </svg>
           </button>
-          <button class="btn--round">
+          <button class="btn--round btn--bookmark">
             <svg class="">
-              <use href="./src/img/icons.svg#icon-bookmark"></use>
+              <use href="./src/img/icons.svg#icon-bookmark${
+                this._data.bookmarked ? '-fill' : ''
+              }"></use>
             </svg>
           </button>
         </div>
@@ -113,9 +123,14 @@ class RecipeView extends View {
             </svg>
           </a>
         </div>
-      </div>
-    </main>
-    `;
+
+        <!-- SIMILAR RECIPES -->
+        <div class="recipe__similar">
+           <h2 class="heading--2">Similar Recipes</h2>
+           <ul class="similar__list">
+           </ul>
+        </div>
+      `;
   }
 
   _generateMarkupIngeridient(ing) {
@@ -131,6 +146,29 @@ class RecipeView extends View {
             </div>
           </li>
             `;
+  }
+
+  renderSimilars(data) {
+    if (!data || (Array.isArray(data) && data.length === 0)) return;
+
+    const similarsParent = document.querySelector('.similar__list');
+    const markup = data.map(this._generateMarkupSimilarPreview).join('');
+    similarsParent.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  _generateMarkupSimilarPreview(result) {
+    return `
+      <li class="preview">
+        <a class="preview__link" href="#${result.id}">
+          <figure class="preview__fig">
+            <img src="${result.image}" alt="${result.title}" />
+          </figure>
+          <div class="preview__data">
+            <h4 class="preview__title">${result.title}</h4>
+          </div>
+        </a>
+      </li>
+        `;
   }
 }
 export default new RecipeView();

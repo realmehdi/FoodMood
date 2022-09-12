@@ -620,6 +620,20 @@ body {
 .recipe__publisher {
   font-weight: 700;
 }
+.recipe__similar {
+  background-color: #f2efee;
+  padding-top: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+.recipe__similar .heading--2 {
+  margin-bottom: 3rem;
+}
+.recipe__similar .similar__list {
+  display: grid;
+  list-style: none;
+  grid-template-columns: 1fr 1fr;
+}
 
 .add-recipe-window {
   position: fixed;

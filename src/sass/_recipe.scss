@@ -173,4 +173,23 @@
   &__publisher {
     font-weight: 700;
   }
+
+  ///////
+  // similar
+  &__similar {
+    background-color: $color-grey-light-2;
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+
+    .heading--2 {
+      margin-bottom: 3rem;
+    }
+
+    .similar__list {
+      display: grid;
+      list-style: none;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
 }

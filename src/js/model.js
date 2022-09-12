@@ -1,27 +1,30 @@
-import { API_URL, KEY, NUM_SEARCH_RESUALT, RES_PER_PAGE } from './config.js';
+import {
+  API_URL,
+  KEY,
+  NUM_SEARCH_RESUALT,
+  NUM_SIMILAR,
+  RES_PER_PAGE,
+} from './config.js';
 import { getJSON, getNutritionHTML } from './helpers.js';
 
 export const state = {
   recipe: {},
   nutrition: [],
+  simirals: [],
   search: {
     query: '',
     results: [],
     page: 1,
     resultsPerPage: RES_PER_PAGE,
   },
+  bookmarks: [],
 };
 
 export const loadRecipe = async function (id) {
   try {
+    // getting recipe information
     const data = await getJSON(`${API_URL}${id}/information?apiKey=${KEY}`);
     console.log(data);
-
-    const recipeNutritionData = await getNutritionHTML(
-      `${API_URL}${id}/nutritionWidget?apiKey=${KEY}`
-    );
-
-    state.nutrition.push(recipeNutritionData);
 
     const ingredients = data.extendedIngredients.map(ing => {
       return {
@@ -42,6 +45,34 @@ export const loadRecipe = async function (id) {
       pricePerServing: data.pricePerServing,
       ingredients,
     };
+
+    // getting nutrition data of current recipe
+    const recipeNutritionData = await getNutritionHTML(
+      `${API_URL}${id}/nutritionWidget?apiKey=${KEY}`
+    );
+
+    state.nutrition.push(recipeNutritionData);
+
+    // getting similar recipe of current recipe
+    const similarRecipes = await getJSON(
+      `${API_URL}${id}/similar?number=${NUM_SIMILAR}&apiKey=${KEY}`
+    );
+    console.log(similarRecipes);
+
+    state.simirals = similarRecipes.map(recipe => {
+      // const similarRecipeImage = `https://spoonacular.com/recipeImages/${recipe.id}-636x393.${recipe.imageType}`;
+      // console.log(similarRecipeImage);
+      return {
+        id: recipe.id,
+        image: `https://spoonacular.com/recipeImages/${recipe.id}-636x393.${recipe.imageType}`,
+        title: recipe.title,
+      };
+    });
+    console.log(state.simirals);
+
+    if (state.bookmarks.some(bookmark => bookmark.id === id))
+      state.recipe.bookmarked = true;
+    else state.recipe.bookmarked = false;
   } catch (err) {
     throw err;
   }
@@ -85,3 +116,34 @@ export const updateServings = function (newServings) {
   );
   state.recipe.servings = newServings;
 };
+
+const persistBookmarks = function () {
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+};
+
+export const addBookmark = function (recipe) {
+  state.bookmarks.push(recipe);
+  if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+
+  persistBookmarks();
+};
+
+export const deleteBookmark = function (id) {
+  const index = state.bookmarks.findIndex(rec => rec.id === id);
+  state.bookmarks.splice(index, 1);
+
+  if (id === state.recipe.id) state.recipe.bookmarked = false;
+
+  persistBookmarks();
+};
+
+const init = function () {
+  const storage = localStorage.getItem('bookmarks');
+  if (storage) state.bookmarks = JSON.parse(storage);
+};
+init();
+
+const clearBookmarks = function () {
+  localStorage.clear('bookmarks');
+};
+// clearBookmarks();
